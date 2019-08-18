@@ -88,9 +88,54 @@ const data = [
   }
 ];
 
+const articleConst = (siteContent) => {
+  const container = document.createElement('div');
+  container.classList.add('article');
+
+  const title = document.createElement('h2');
+  title.textContent = siteContent.title;
+  container.appendChild(title);
+
+  const date = document.createElement('p');
+  date.classList.add('date');
+  date.textContent = siteContent.date;
+  container.appendChild(date);
+
+  const paragraphs = [];
+  for (let i = 0; i < 3; i++){
+    paragraphs.push(document.createElement('p'))
+  }
+  paragraphs[0].textContent = siteContent.firstParagraph
+  paragraphs[1].textContent = siteContent.secondParagraph
+  paragraphs[2].textContent = siteContent.thirdParagraph
+  paragraphs.forEach((pTag) => {
+    container.appendChild(pTag)
+  })
+
+  let button = document.createElement('span')
+  button.classList.add('expandButton')
+  button.textContent = 'Read More'
+  container.appendChild(button)
+  button.addEventListener('click', event => {
+    event.preventDefault();
+    container.classList.toggle('article-open')
+  })
+
+  return container;
+}
+
+// console.log(articleConst());
+const article = document.querySelector('.articles')
+
+const siteContent = data.map((content) => {
+  return article.append(articleConst(content))
+})
+
+console.log(siteContent)
+
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
-  <div class="article">
+/ <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
 
